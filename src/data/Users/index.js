@@ -1,5 +1,5 @@
 const utils = require('../utils');
-const config = require('../../dbconfig');
+const config = require('../../../dbconfig');
 const sql = require('mssql');
 
 const getUsers = async () => {
