@@ -1,1 +1,1 @@
-SELECT * FROM Cards WHERE UserCardId = 2;
+SELECT * FROM Cards WHERE UserCardId = @UserCardId;
