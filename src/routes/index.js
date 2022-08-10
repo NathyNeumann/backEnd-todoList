@@ -6,6 +6,7 @@ const cardsController = require('../controllers/cardsController')
 
 router.get('/users', userController.getListUsers)
 router.get('/cards/:id', cardsController.getListCards)
+router.post('/card', cardsController.postCreateCard)
 
 module.exports = router;
  
