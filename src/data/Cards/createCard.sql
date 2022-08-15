@@ -9,8 +9,7 @@ VALUES (
     @cardDescription,
     @createCardDate,
     @ExecutionCardDate,
-    @userCardId
+    @UserCardId
 );
-
 
 SELECT SCOPE_IDENTITY() as CardId;

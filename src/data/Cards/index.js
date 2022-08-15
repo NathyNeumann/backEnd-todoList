@@ -10,7 +10,7 @@ const getUserCards = async (userId) => {
                     .input('UserCardId', sql.Int, userId)
                     .query(sqlQueries.cardsList);
         return list.recordset;
-        
+
     } catch (error) {
         return error.message;
     }
@@ -21,11 +21,11 @@ const createCard = async (cardData) =>{
         let pool = await sql.connect(config);
         const sqlQueries = await utils.loadeSQLQueries('Cards');
         let card = await pool.request()
-                    .input('cardTitle', sql.NVarChar(100), cardData.cardTitle)
-                    .input('cardDescription', sql.NVarChar(500), cardData.cardDescription)
-                    .input('createCardDate', sql.DateTime, cardData.createCardDate)
+                    .input('cardTitle', sql.NVarChar(100), cardData.CardTitle)
+                    .input('cardDescription', sql.NVarChar(500), cardData.CardDescription)
+                    .input('createCardDate', sql.DateTime, cardData.CreateCardDate)
                     .input('ExecutionCardDate', sql.DateTime, cardData.ExecutionCardDate)
-                    .input('userCardId', sql.Int, cardData.userCardId)
+                    .input('UserCardId', sql.Int, cardData.UserCardId)
                     .query(sqlQueries.createCard);
         return card.recordset;
                     
@@ -34,7 +34,56 @@ const createCard = async (cardData) =>{
     }
 }
 
+const getOneCard = async (CardId) => {
+    try {
+        let pool = await sql.connect(config);
+        const sqlQueries = await utils.loadeSQLQueries('Cards');
+        let card = await pool.request()
+                    .input('CardId', sql.Int, CardId)
+                    .query(sqlQueries.readCard);
+        return card.recordset;
+
+    } catch (error) {
+        return error.message;
+    }
+}
+
+const updateCard = async (CardId, CardData) => {
+    try {
+        let pool = await sql.connect(config);
+        const sqlQueries = await utils.loadeSQLQueries('Cards');
+        let cardUpdate = await pool.request()
+                    .input('CardTitle', sql.NVarChar(100), CardData.CardTitle)
+                    .input('CardDescription', sql.NVarChar(500), CardData.CardDescription)
+                    .input('ExecutionCardDate', sql.DateTime, CardData.ExecutionCardDate)
+                    .input('CreateCardDate', sql.DateTime, CardData.CreateCardDate)
+                    .input('CardId', sql.Int, CardId)
+                    .query(sqlQueries.updateCard);
+        return cardUpdate.recordset;
+        
+    } catch (error) {
+        return error.message;
+    }
+}
+
+const deleteCard = async (CardId) => {
+    try {
+        const pool = await sql.connect(config);
+        const sqlQueries = await utils.loadeSQLQueries('Cards');
+        const deleteCard = await pool.request()
+                        .input('CardId', sql.Int, CardId)
+                        .query(sqlQueries.deleteCard);
+        return deleteCard.recordset;
+        
+    } catch (error) {
+        return error.message
+    }
+}
+
 module.exports = {
     getUserCards,
-    createCard
+    createCard, 
+    getOneCard,
+    updateCard,
+    deleteCard
 }

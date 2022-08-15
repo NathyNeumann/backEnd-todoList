@@ -1,1 +1,1 @@
-SELECT * FROM Cards WHERE UserCardId = @UserCardId;
+SELECT * FROM [crud].[dbo].[Cards] WHERE UserCardId = @UserCardId;
